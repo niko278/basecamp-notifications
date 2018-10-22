@@ -1,0 +1,40 @@
+{
+  "name": "Basecamp Notifications",
+  "author": "Dominik Głodek",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Override and customize Basecamp notifications",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/icon-default.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "options_ui": {
+    "page": "src/options.html",
+    "open_in_tab": false
+  },
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": false
+  },
+  "web_accessible_resources" : [
+    "src/web.js"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://3.basecamp.com/*"
+      ],
+      "js": [
+        "src/content.js"
+      ]
+    }
+  ]
+}

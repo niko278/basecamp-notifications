@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basecamp Notifications Options</title>
+    <link rel="stylesheet" href="options.css"/>
+</head>
+<body>
+
+    <div class="inputs">
+        <label for="audioUrl" class="label">Audio URL:</label>
+        <input type="text" id="audioUrl" class="text-input">
+    </div>
+
+    <div class="inputs">
+        <label for="audioVolume" class="label">Audio volume:</label>
+        <input type="range" id="audioVolume" min="0" max="100" step="5" suffix="%" class="range-input">
+    </div>
+
+    <div class="inputs">
+        <label for="notificationTime" class="label">Notification time:</label>
+        <input type="range" id="notificationTime" min="0" max="120" step="5" suffix=" seconds" class="range-input">
+    </div>
+
+    <div class="buttons">
+        <button id="preview" class="button">Preview</button>
+        <button id="save" save="Save" saved="Saved" class="button">Save</button>
+    </div>
+
+    <script src="options.js"></script>
+
+</body>
+</html>
