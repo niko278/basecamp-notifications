@@ -35,8 +35,8 @@ new class BackgroundScript {
             chrome.windows.update(tab.windowId, {
                 focused: true
             });
-            chrome.tabs.highlight({
-                tabs: tab.index
+            chrome.tabs.update(tab.id, {
+                active: true
             });
         }
     }
