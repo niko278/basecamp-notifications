@@ -25,7 +25,8 @@
     "persistent": false
   },
   "web_accessible_resources" : [
-    "src/web.js"
+    "src/web.js",
+    "sounds/notification.mp3"
   ],
   "content_scripts": [
     {

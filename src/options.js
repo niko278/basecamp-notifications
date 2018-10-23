@@ -3,6 +3,7 @@ new class OptionsScript {
     constructor() {
         this.previewButton = document.getElementById('preview');
         this.saveButton = document.getElementById('save');
+        this.defaultAudioUrl = chrome.extension.getURL('sounds/notification.mp3');
         this.defaultOptions = {
             audioUrl: '',
             audioVolume: 100,
@@ -49,7 +50,7 @@ new class OptionsScript {
 
     previewUserOptions() {
         let options = this.getUserOptions();
-        let audio = new Audio(options.audioUrl);
+        let audio = new Audio(options.audioUrl || this.defaultAudioUrl);
         audio.volume = options.audioVolume / 100;
         audio.play();
     }

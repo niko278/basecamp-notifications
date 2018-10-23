@@ -2,6 +2,7 @@ new class ContentScript {
 
     constructor() {
         this.scriptPath = 'src/web.js';
+        this.defaultAudioUrl = chrome.extension.getURL('sounds/notification.mp3');
         this.defaultOptions = {
             audioUrl: '',
             audioVolume: 100,
@@ -28,6 +29,7 @@ new class ContentScript {
     async injectScript(){
         let options = await this.getOptionsFromStorage();
         let script = document.createElement('script');
+        options.audioUrl = options.audioUrl || this.defaultAudioUrl;
         script.src = chrome.extension.getURL(this.scriptPath);
         script.dataset.options = JSON.stringify(options);
         document.head.appendChild(script);
