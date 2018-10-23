@@ -7,6 +7,7 @@ new class BackgroundScript {
         this.readEventKey = 'read';
         this.unreadEventKey = 'unread';
         this.bindEvents();
+        this.checkTab();
     }
 
     bindEvents() {
@@ -16,15 +17,21 @@ new class BackgroundScript {
         chrome.runtime.onMessage.addListener(message => {
             this.handleMessage(message);
         });
+        chrome.tabs.onCreated.addListener(() => { 
+            this.checkTab();
+        });
+        chrome.tabs.onUpdated.addListener(() => {
+            this.checkTab();
+        });
+        chrome.tabs.onRemoved.addListener(() => {
+            this.checkTab();
+        });
     }
 
     async getTab() {
         return new Promise(resolve => {
             chrome.tabs.query({}, tabs => {
-                let tab = tabs.find(tab => tab.url.indexOf(this.baseUrl) === 0);
-                if (tab) {
-                    resolve(tab);
-                }
+                resolve(tabs.find(tab => tab.url.indexOf(this.baseUrl) === 0));
             });
         });
     }
@@ -41,16 +48,21 @@ new class BackgroundScript {
         }
     }
 
-    handleMessage(message) {
-        if (message === this.unreadEventKey) {
-            this.applyIcon(this.unreadIconPath);
-        } else if (message === this.readEventKey) {
-            this.applyIcon(this.defaultIconPath);
+    async checkTab() {
+        let tab = await this.getTab();
+        if (tab) {
+            chrome.browserAction.enable();
+        } else {
+            chrome.browserAction.disable();
         }
     }
 
-    applyIcon(path){
-        chrome.browserAction.setIcon({path: path});
+    handleMessage(message) {
+        if (message === this.unreadEventKey) {
+            chrome.browserAction.setIcon({path: this.unreadIconPath});
+        } else if (message === this.readEventKey) {
+            chrome.browserAction.setIcon({path: this.defaultIconPath});
+        }
     }
 
 };
