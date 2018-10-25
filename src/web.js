@@ -17,6 +17,12 @@ window.script = new class WebScript {
         window.addEventListener('focus', () => {
             this.closeAllNotifications();
         });
+        document.addEventListener('mousedown', () => {
+            this.closeAllNotifications();
+        });
+        document.addEventListener('keypress', () => {
+            this.closeAllNotifications();
+        });
     }
 
     overrideNotificationMethod() {
